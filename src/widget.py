@@ -1,4 +1,6 @@
-from masks import get_mask_card_number, get_mask_account
+from datetime import datetime
+
+from masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(card_data: str) -> str:
@@ -20,3 +22,11 @@ def mask_account_card(card_data: str) -> str:
             return f"{name_card_str} {get_mask_account(card_data_list[-1])}"
 
     return "Некорректный ввод данных"
+
+
+def get_date(date_iso_format: str) -> str:
+    """Функция, которая форматирует дату из 'ISO 8601' в 'ДД.ММ.ГГГГ'."""
+    if not date_iso_format:
+        return "Некорректный ввод"
+    date_obj = datetime.fromisoformat(date_iso_format)
+    return date_obj.strftime("%d.%m.%Y")
