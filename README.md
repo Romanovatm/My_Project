@@ -58,7 +58,7 @@ poetry install
 Пример вывода: [{'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'}, 
                 {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}]
 
-6. Функция для отсортировки списка транзакций по дате```def sort_by_date(information, is_reversed=True)```
+6. Функция для сортировки списка транзакций по дате```def sort_by_date(information, is_reversed=True)```
 
 Пример вызова:```print(sort_by_date([{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'}, 
                                      {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}, 
