@@ -2,8 +2,11 @@ def filter_by_state(information: list, state: str = "EXECUTED") -> list:
     """Функция возвращает отсортированный список словарей по состоянию транзакций"""
     filter_list = []
     for elem in information:
-        if elem["state"] == state:
-            filter_list.append(elem)
+        try:
+            if elem["state"] == state:
+                filter_list.append(elem)
+        except KeyError:
+            continue
     return filter_list
 
 
