@@ -28,5 +28,8 @@ def get_date(date_iso_format: str) -> str:
     """Функция, которая форматирует дату из 'ISO 8601' в 'ДД.ММ.ГГГГ'."""
     if not date_iso_format:
         return "Некорректный ввод"
-    date_obj = datetime.fromisoformat(date_iso_format)
-    return date_obj.strftime("%d.%m.%Y")
+    try:
+        date_obj = datetime.fromisoformat(date_iso_format)
+        return date_obj.strftime("%d.%m.%Y")
+    except ValueError:
+        return "Некорректный ввод"
