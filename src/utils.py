@@ -1,8 +1,11 @@
+import csv
 import json
 import logging
 
+import pandas as pd
+
 logger = logging.getLogger("utils")
-file_handler = logging.FileHandler("logs/utils.log", "w", encoding="utf-8")
+file_handler = logging.FileHandler("C:/PythonProject/My_Project/logs/utils.log", "w", encoding="utf-8")
 file_formatter = logging.Formatter("%(asctime)s - %(filename)s - %(levelname)s - %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
@@ -30,4 +33,29 @@ def transactions_info(path_to_json_file: str) -> list[dict]:
             return transactions
     except FileNotFoundError:
         logger.error("Внимание! FileNotFoundError")
+        return []
+
+
+def transactions_csv(path_to_csv_file: str) -> list[dict]:
+    """
+    Функция принимает на вход путь до CSV-файла и возвращает список словарей с данными
+    о финансовых транзакциях.
+    """
+    try:
+        with open(path_to_csv_file, "r", encoding="UTF-8") as file:
+            read_csv = csv.DictReader(file, delimiter=";")
+            return list(read_csv)
+    except FileNotFoundError:
+        return []
+
+
+def transactions_excel(path_to_excel_file: str) -> list[dict]:
+    """
+    Функция принимает на вход путь до EXCEL-файла и возвращает список словарей с данными
+    о финансовых транзакциях.
+    """
+    try:
+        excel_file = pd.read_excel(path_to_excel_file)
+        return excel_file.to_dict(orient="records")
+    except FileNotFoundError:
         return []
