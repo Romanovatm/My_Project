@@ -35,7 +35,9 @@ def test_transactions_excel_file_not_found():
 @patch(
     "builtins.open",
     mock_open(
-        read_data="id;state;date;amount;currency_name;currency_code;from;to;description\n650703;EXECUTED;2023-09-05T11:30:32Z;16210;Sol;PEN;Счет 58803664561298323391;Счет 39745660563456619397;Перевод организации"
+        read_data="id;state;date;amount;currency_name;currency_code;from;to;description\n"
+        "650703;EXECUTED;2023-09-05T11:30:32Z;16210;Sol;PEN;"
+        "Счет 58803664561298323391;Счет 39745660563456619397;Перевод организации"
     ),
 )
 def test_transactions_csv_ok():
