@@ -1,6 +1,6 @@
 import pytest
 
-from src.processing import filter_by_state, sort_by_date
+from src.processing import filter_by_state, process_bank_operations, process_bank_search, sort_by_date
 
 
 @pytest.mark.parametrize(
@@ -112,3 +112,33 @@ def test_sort_by_date_same_dates_is_reversed_false(list_of_dicts_same_date):
 )
 def test_sort_by_different_date(list_of_dicts_different_date, is_reversed, expected):
     assert sort_by_date(list_of_dicts_different_date, True) == expected
+
+
+def test_process_bank_search(list_of_dicts_info_transactions):
+    assert process_bank_search(list_of_dicts_info_transactions, "счет") == [
+        {
+            "id": 142264268,
+            "state": "EXECUTED",
+            "date": "2019-04-04T23:20:05.206878",
+            "operationAmount": {"amount": "79114.93", "currency": {"name": "USD", "code": "USD"}},
+            "description": "Перевод со счета на счет",
+            "from": "Счет 19708645243227258542",
+            "to": "Счет 75651667383060284188",
+        },
+        {
+            "id": 873106923,
+            "state": "EXECUTED",
+            "date": "2019-03-23T01:09:46.296404",
+            "operationAmount": {"amount": "43318.34", "currency": {"name": "руб.", "code": "RUB"}},
+            "description": "Перевод со счета на счет",
+            "from": "Счет 44812258784861134719",
+            "to": "Счет 74489636417521191160",
+        },
+    ]
+
+
+def test_process_bank_operations(list_of_dicts_info_transactions):
+    assert process_bank_operations(list_of_dicts_info_transactions, []) == {}
+    assert process_bank_operations(list_of_dicts_info_transactions, ["Перевод с карты на карту"]) == {
+        "Перевод с карты на карту": 1
+    }
